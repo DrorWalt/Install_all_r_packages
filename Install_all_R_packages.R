@@ -17,12 +17,13 @@ list_all_packages<-function(drive='C:/') {
   myDF<-data.frame(do.call(rbind,content_list))
   
   myDFresults<-regmatches(myDF$X2,
-                          gregexpr("library(\\S+)",myDF$X2))
+                          gregexpr("library(\\S+)|\\S+::",myDF$X2))
   
   myDFresults_vect<-unlist(myDFresults)
   myDFresults_vect<-unique(myDFresults_vect)
   
   myDFresults_vect2<-gsub("library","",myDFresults_vect)
+   myDFresults_vect2<-gsub("::","",myDFresults_vect2)
   myDFresults_vect3<-gsub("[^A-Za-z0-9]","",myDFresults_vect2)
   
   
